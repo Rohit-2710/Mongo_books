@@ -38,3 +38,20 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+exports.findOne = (req, res) => {
+  Book.findById(req.body.id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: "No book found with the given Id",
+        });
+      }
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message,
+      });
+    });
+};
