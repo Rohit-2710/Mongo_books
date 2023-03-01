@@ -55,3 +55,28 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+exports.update = (req, res) => {
+  Book.findByIdAndUpdate(
+    req.body.id,
+    {
+      title: req.body.title,
+      description: req.body.description,
+      cost: req.body.cost,
+    },
+    { new: true }
+  )
+    .then((data) => {
+      if (!data) {
+        res.status(400).send({
+          message: "No book found for the given id",
+        });
+      }
+      res.send(data);
+    })
+    .catch((err) => {
+      return res.send({
+        message: "No data found",
+      });
+    });
+};

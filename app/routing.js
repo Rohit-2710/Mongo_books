@@ -4,4 +4,5 @@ module.exports = (app) => {
   app.post("/books", books.addBook);
   app.get("/books", books.findAll);
   app.get("/find", books.findOne);
+  app.post("/update", books.update);
 };
