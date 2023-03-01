@@ -80,3 +80,24 @@ exports.update = (req, res) => {
       });
     });
 };
+exports.deleteByID = (req, res) => {
+  Book.findByIdAndRemove(req.params.id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: "No data found for the given id :" + req.params.id,
+        });
+      }
+      res.send({
+        message: "Entry deleted successfully",
+      });
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId" || err.name === "NotFound") {
+        message: "No data found for the given id :" + req.parse.id;
+      }
+      res.status(500).send({
+        message: err.message || "Cound not delete the entry",
+      });
+    });
+};
