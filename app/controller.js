@@ -1,10 +1,10 @@
 const Book = require("./structure");
 exports.addBook = (req, res) => {
-  // if (!req.body.content) {
-  //   return res.status(400).send({
-  //     message: "Please note that the data cannot be blank",
-  //   });
-  // }
+  if (!req.body.title) {
+    return res.status(400).send({
+      message: "Please note that the data cannot be blank",
+    });
+  }
   const book = new Book({
     title: req.body.title || "Untitled Book",
     author: req.body.author || "Unknown author",
@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  Book.findById(req.body.id)
+  Book.findById(req.params.id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -58,11 +58,11 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
   Book.findByIdAndUpdate(
-    req.body.id,
+    req.params.id,
     {
-      title: req.body.title,
-      description: req.body.description,
-      cost: req.body.cost,
+      title: req.params.title,
+      description: req.params.description,
+      cost: req.params.cost,
     },
     { new: true }
   )
