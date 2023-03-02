@@ -9,6 +9,11 @@ const mongoose = require("mongoose");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+var corOptions = {
+  origin: "https://localhost:4200",
+};
+app.use(cors(corOptions));
+
 mongoose.Promise = global.Promise;
 mongoose
   .connect(dbconfig.url, { useNewUrlParser: true })
